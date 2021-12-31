@@ -14,6 +14,7 @@ fn invalid_index(input: &str) -> i64 {
     for i in 0 .. (len + 1) / 2 {
         let current = input.chars().nth(i);
         let opposite = input.chars().nth(len - i - 1);
+        // Polyndrome is broken if any character before the middle doesn't have same opposite character
         if current != opposite && i != (len + 1) / 2 {
             return i as i64;
         }
@@ -28,8 +29,13 @@ fn test_short_validation() {
 }
 
 #[test]
+fn test_short_success_validation() {
+    assert_eq!(invalid_index("aa"), -1);
+}
+
+#[test]
 fn test_shortest_possible_validation() {
-    assert_eq!(invalid_index("axa"), -1);
+    assert_eq!(invalid_index("a"), -1);
 }
 
 #[test]
@@ -43,22 +49,16 @@ fn test_failing_validation() {
 }
 
 #[test]
-fn test_success_validation() {
+fn test_success_odd_validation() {
     assert_eq!(invalid_index("deadbeefxfeebdaed"), -1);
 }
 
+#[test]
+fn test_success_even_validation() {
+    assert_eq!(invalid_index("deadbeeffeebdaed"), -1);
+}
+
 fn check_polyndrome(input: &str) -> Result<bool, String> {
-    let len = input.len();
-    if len < 3 {
-        let msg = format!("'{:?}' is too short for a polyndrome", input);
-        return Err(msg);
-    }
-
-    if len % 2 == 0 {
-        let msg = format!("Even length string '{:?}' can't be a polyndrome", input);
-        return Err(msg);
-    }
-
     let index = invalid_index(input);
     if index != -1 {
         let msg = format!("Character at position {} does not have a symmetric opposite character", index);
