@@ -14,7 +14,7 @@ fn invalid_index(input: &str) -> i64 {
     for i in 0 .. (len + 1) / 2 {
         let current = input.chars().nth(i);
         let opposite = input.chars().nth(len - i - 1);
-        // Polyndrome is broken if any character before the middle doesn't have same opposite character
+        /// Polyndrome is broken if any character before the middle doesn't have same opposite character
         if current != opposite && i != (len + 1) / 2 {
             return i as i64;
         }
