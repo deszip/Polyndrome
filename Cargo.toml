@@ -1,0 +1,8 @@
+[package]
+name = "polyndrome"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+text-colorizer = "1"
+structopt = { version = "0.3", features = [ "paw" ] }
